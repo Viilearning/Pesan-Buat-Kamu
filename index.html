@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Buat Kamu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #f3060e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .pesan {
+            background: rgb(252, 252, 252);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(250, 249, 249, 0.2);   
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+        .pesan.muncul {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tombol berbentuk LOVE ❤️ */
+        .love-button {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: #ff4d6d;
+            border: none;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            
+            /* Menambahkan jarak antara pesan dan tombol */
+            margin-top: 20px;
+        }
+
+        /* Bentuk love dengan pseudo-element */
+        .love-button::before,
+        .love-button::after {
+            content: "";
+            width: 30px;
+            height: 50px;
+            background: #ff4d6d;
+            position: absolute;
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .love-button::before {
+            left: -15px;
+        }
+
+        .love-button::after {
+            right: -15px;
+        }
+
+        /* Efek hover */
+        .love-button:hover {
+            background: #ff1e50;
+            transform: scale(1.1);
+        }
+
+        /* Efek animasi berdenyut */
+        .love-button:active {
+            transform: scale(0.9);
+            transition: transform 0.1s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="pesan" id="pesan">Selamat datang!</div>
+    <button class="love-button" onclick="ubahPesan()">❤</button>
+
+    <script>
+        let pesanArray = [
+            "Haiii my baby!",
+            "Semangat terus!",
+            "Hari ini luar biasa!",
+            "Tetap tersenyum 😊",
+            "Kamu hebat!",
+            "Jangan menyerah 💪",
+            "Sukses selalu!",
+            "Bahagia itu sederhana 💖",
+            "Luv u sayangku ❤️",
+            "Mwaaachhh",
+            "🥰",
+            "Baa-baiii sayang 😊"
+        ];
+
+        let indexPesan = 0; // Mulai dari pesan pertama
+
+        function ubahPesan() {
+            let pesanElement = document.getElementById("pesan");
+
+            // Efek animasi keluar
+            pesanElement.classList.remove("muncul");
+
+            setTimeout(() => {
+                pesanElement.innerText = pesanArray[indexPesan]; // Set pesan sesuai urutan
+                pesanElement.classList.add("muncul"); // Efek animasi masuk
+                
+                indexPesan++; // Naik ke pesan berikutnya
+                
+                // Jika sudah di pesan terakhir, kembali ke awal
+                if (indexPesan >= pesanArray.length) {
+                    indexPesan = 0;
+                }
+            }, 500);
+        }
+
+        // Pesan berubah otomatis setiap 5 detik
+        setInterval(ubahPesan, 5000);
+    </script>
+
+</body>
+</html>
