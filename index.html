@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Buat Kamu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #f3060e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pesan-container {
+            background: rgb(252, 252, 252);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .pesan-container.muncul {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .love-button {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            background: #ff4d6d;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .love-icon {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .love-button:hover {
+            background: #ff1e50;
+            transform: scale(1.1);
+        }
+
+        .love-button:active .love-icon {
+            transform: scale(0.9);
+        }
+
+        .floating-love {
+            position: absolute;
+            font-size: 24px;
+            color: #ff4d6d;
+            animation: floatUp 1.5s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-40px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pesan-container" id="pesan-container">
+        <span id="pesan">Selamat datang!</span>
+    </div>
+
+    <button class="love-button" onclick="ubahPesan(); createLoveEffect(event);">
+        <svg class="love-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </button>
+
+    <script>
+        let pesanArray = [
+            "Heyyy kamu!",
+            "Semangat terus!",
+            "Hari ini luar biasa!",
+            "Tetap tersenyum 😊",
+            "Kamu hebat!",
+            "Jangan menyerah 💪",
+            "Sukses selalu!",
+            "Bahagia itu sederhana 💖",
+            "Luv u ❤️",
+            "Mwaaachhh!",
+            "M-maaf tiba-tiba cium..",
+            "🫢🤭🤫🥰",
+            "Baa-baiii sayang 😊",
+            "🤭Hihihi~"
+        ];
+
+        let indexPesan = 0; 
+
+        function ubahPesan() {
+            let pesanContainer = document.getElementById("pesan-container");
+            let pesanElement = document.getElementById("pesan");
+
+            pesanContainer.classList.remove("muncul");
+
+            setTimeout(() => {
+                pesanElement.innerText = pesanArray[indexPesan];
+                pesanContainer.classList.add("muncul");
+
+                indexPesan++;
+                if (indexPesan >= pesanArray.length) {
+                    indexPesan = 0;
+                }
+            }, 500);
+        }
+
+        function createLoveEffect(event) {
+            const button = event.currentTarget;
+            const love = document.createElement("div");
+            love.classList.add("floating-love");
+            love.innerText = "❤";
+
+            const offsetX = (Math.random() - 0.5) * 60;
+            const offsetY = (Math.random() - 0.5) * 10;
+
+            love.style.left = `${button.offsetLeft + button.offsetWidth / 2 + offsetX}px`;
+            love.style.top = `${button.offsetTop + offsetY}px`;
+
+            document.body.appendChild(love);
+
+            setTimeout(() => {
+                love.remove();
+            }, 1500);
+        }
+
+        setInterval(ubahPesan, 3000);
+    </script>
+
+</body>
+</html>
